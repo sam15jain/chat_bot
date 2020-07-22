@@ -1,3 +1,6 @@
+/* created by Samyak Jain
+    on 15 July 2020 */
+
 onload = function(){
     console.log("here onload");
     var chatObj = {
@@ -16,10 +19,9 @@ onload = function(){
             sendBtn.addEventListener("click",this.addMsg);
             typeBox.addEventListener("keyup",this.addMsgEnter);
         },
-        render : function(){
+        render : async function(){
             // console.log("here render");
-            var scrollElm = document.scrollingElement;
-            scrollElm.scrollTop = scrollElm.scrollHeight;
+            scrollBottom();
             if(this.newMsg.length !== 0){
                 let nMsg = document.createElement('li');
                 nMsg.innerHTML=this.newMsg;
@@ -27,12 +29,13 @@ onload = function(){
                 msgList.appendChild(nMsg);
                 typeBox.value = "";
                 nMsg = document.createElement('li');
-                nMsg.innerHTML="OK";
+                let data = await eval("getNews()");
+                nMsg.innerHTML=data.articles[0].title;
+                // nMsg.innerHTML="ok";
                 nMsg.className = "botMsg";
                 msgList.appendChild(nMsg);
             }
-            var scrollElm = document.scrollingElement;
-            scrollElm.scrollTop = scrollElm.scrollHeight;
+            scrollBottom();    
         },
         addMsg : function(){
             // console.log("here addMsg");
@@ -50,4 +53,13 @@ onload = function(){
     }
     chatObj.init();
 
+}
+function scrollBottom(){
+    var scrollElm = document.scrollingElement;
+    scrollElm.scrollTop = scrollElm.scrollHeight;
+}
+async function getNews() {
+    const response = await fetch('https://newsapi.org/v2/top-headlines?country=in&pageSize=1&apiKey=a876816f98574cdfa23ffdc7d531c7bc');
+    const jsonResp = await response.json();
+    return jsonResp;
 }
