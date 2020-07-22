@@ -3,12 +3,33 @@
 <head>
     <meta charset='utf-8'>
     <meta http-equiv='X-UA-Compatible' content='IE=edge'>
-    <title>Page Title</title>
+    <title>Chat Bot</title>
     <meta name='viewport' content='width=device-width, initial-scale=1'>
     <link rel='stylesheet' type='text/css' media='screen' href='style.css'>
     <script src='script.js'></script>
 </head>
 <body>
-    hello
+    
+    <div id="chatBox">
+        <div id="heading" >
+            Chat Bot
+        </div>
+        <div id="msgBox" class="boxes">
+            <ul id="msgList">
+                <li class="botMsg">Welcome to ChatBot!! What would you like to do?
+                    <ol>
+                        <li>Get weather updates</li>
+                        <li>Check the news</li>
+                        <li>Hear a fun fact</li>
+                        <li>Hear a joke</li>
+                    </ol>
+                </li>
+            </ul>
+        </div>
+        <!-- <textarea name="typebox" id="typebox" class="boxes" placeholder="Enter your message"  rows="2"></textarea> -->
+        <input type="text" id="typeBox" class="boxes" placeholder="Enter your message">
+        <input type="button" id="sendBtn" class="boxes" value="Send">
+    </div>
+
 </body>
 </html>

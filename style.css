@@ -1,0 +1,59 @@
+#chatbox {
+    /* border: black solid 2px; */
+    padding: 2%;
+}
+.boxes{
+    /* position: absolute; */
+    border: rgba(70, 69, 69, 0.582) ridge 1px;
+    font-family:   'Trebuchet MS', Calibri, sans-serif;
+    font-size: medium;
+    border-style: ridge;
+    background-color: beige;
+    border-radius: 10px;
+}
+#heading{
+    /* position: fixed; */
+    font-family: 'Arial Narrow Bold', sans-serif;
+    font-weight: bolder;
+    font-size: large;
+    background-color: rgb(246, 63, 63);
+    border: rgba(70, 69, 69, 0.582) ridge 1px;
+    padding: 1%;
+    border-radius: 10px;
+}
+#msgBox {
+    padding-top: 5%;
+    padding-bottom: 5%;
+    padding-left: 2%;
+    padding-right: 2%;
+}
+#typeBox {
+    padding: 1%;
+    width: 98%;
+    /* display: inline; */
+}
+#sendBtn{
+    padding: 1%;
+    /* width: 6%; */
+}
+#msgList{
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+.botMsg{
+    border:rgba(70, 69, 69, 0.582) ridge 1px;
+    padding: 2%;
+    border-radius: 10px;
+    margin-right: 35%;
+    margin-bottom: 3%;
+    background-color: coral;
+}
+.userMsg{
+    border: rgba(70, 69, 69, 0.582) ridge 1px;
+    padding: 2%;
+    border-radius: 10px;
+    margin-left: 35%;
+    margin-bottom: 3%;
+    background-color: greenyellow;
+}
