@@ -29,8 +29,8 @@ onload = function(){
                 msgList.appendChild(nMsg);
                 typeBox.value = "";
                 nMsg = document.createElement('li');
-                let data = await eval("getNews()");
-                nMsg.innerHTML=data.articles[0].title;
+                let data = await eval("getJoke()");
+                nMsg.innerHTML=data.value.joke;
                 // nMsg.innerHTML="ok";
                 nMsg.className = "botMsg";
                 msgList.appendChild(nMsg);
@@ -58,8 +58,8 @@ function scrollBottom(){
     var scrollElm = document.scrollingElement;
     scrollElm.scrollTop = scrollElm.scrollHeight;
 }
-async function getNews() {
-    const response = await fetch('http://newsapi.org/v2/top-headlines?country=in&pageSize=1&apiKey=a876816f98574cdfa23ffdc7d531c7bc');
+async function getJoke() {
+    const response = await fetch('http://api.icndb.com/jokes/random');
     const jsonResp = await response.json();
     return jsonResp;
 }
