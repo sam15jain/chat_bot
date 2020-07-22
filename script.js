@@ -59,7 +59,7 @@ function scrollBottom(){
     scrollElm.scrollTop = scrollElm.scrollHeight;
 }
 async function getJoke() {
-    const response = await fetch('http://api.icndb.com/jokes/random');
+    const response = await fetch('https://api.icndb.com/jokes/random');
     const jsonResp = await response.json();
     return jsonResp;
 }
