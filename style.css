@@ -1,6 +1,6 @@
 /* created by Samyak Jain
     on 15 July 2020 */
-    
+
 #chatbox {
     /* border: black solid 2px; */
     padding: 2%;
@@ -11,15 +11,16 @@
     font-family:   'Trebuchet MS', Calibri, sans-serif;
     font-size: medium;
     border-style: ridge;
-    background-color: beige;
+    background-color: whitesmoke;
     border-radius: 10px;
 }
 #heading{
     /* position: fixed; */
+    color: rgb(218, 212, 212);
     font-family: 'Arial Narrow Bold', sans-serif;
     font-weight: bolder;
     font-size: large;
-    background-color: rgb(246, 63, 63);
+    background-color: #3b4866;
     border: rgba(70, 69, 69, 0.582) ridge 1px;
     padding: 1%;
     border-radius: 10px;
@@ -50,7 +51,8 @@
     border-radius: 10px;
     margin-right: 35%;
     margin-bottom: 3%;
-    background-color: coral;
+    /* background-color: rgb(118, 157, 231); */
+    background-color: rgb(144, 238, 144);
 }
 .userMsg{
     border: rgba(70, 69, 69, 0.582) ridge 1px;
@@ -58,5 +60,6 @@
     border-radius: 10px;
     margin-left: 35%;
     margin-bottom: 3%;
-    background-color: greenyellow;
+    /* background-color: rgb(144, 238, 144); */
+    background-color: rgb(138, 174, 241);
 }
