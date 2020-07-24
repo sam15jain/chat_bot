@@ -166,7 +166,7 @@ async function getNews() {
         askedNews = true;
         newsCnt++;
         let artLinkStr = jsonResp.articles[0].source.url;
-        return jsonResp.articles[0].title + "<br><br>Source: " + jsonResp.articles[0].source.name + "<br>Article Link:  <a href=\"" + artLinkStr + "\" target=\"_blank\">" + artLinkStr + "</a>" + "<br><br>Enter 1 again to read another news or choose another option !";
+        return jsonResp.articles[0].title + "<br><br>Source: " + jsonResp.articles[0].source.name + "<br><a href=\"" + artLinkStr + "\" target=\"_blank\">" + "Article Link" + "</a>" + "<br><br>Enter 1 again to read another news or choose another option !";
     }
     else {
 
@@ -175,7 +175,7 @@ async function getNews() {
         console.log("ind= " + ind);
         newsCnt++;
         let artLinkStr = foo.articles[ind].source.url;
-        return foo.articles[ind].title + "<br><br>Source: " + foo.articles[ind].source.name + "<br>Article Link:  <a href=\"" + artLinkStr + "\" target=\"_blank\">" + artLinkStr + "</a>" + "<br><br>Enter 1 again to read another news or choose another option !";
+        return foo.articles[ind].title + "<br><br>Source: " + foo.articles[ind].source.name + "<br><a href=\"" + artLinkStr + "\" target=\"_blank\">" + "Article Link" + "</a>" + "<br><br>Enter 1 again to read another news or choose another option !";
     }
     // return "This is a news";
 }
