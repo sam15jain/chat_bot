@@ -14,6 +14,8 @@
     background-color: whitesmoke;
     border-radius: 10px;
 }
+
+/* style for heading */
 #heading{
     /* position: fixed; */
     color: rgb(218, 212, 212);
@@ -25,6 +27,7 @@
     padding: 1%;
     border-radius: 10px;
 }
+
 #msgBox {
     padding-top: 5%;
     padding-bottom: 5%;
@@ -45,6 +48,8 @@
     margin: 0;
     padding: 0;
 }
+
+/* style for bot messages */
 .botMsg{
     border:rgba(70, 69, 69, 0.582) ridge 1px;
     padding: 2%;
@@ -54,6 +59,8 @@
     /* background-color: rgb(118, 157, 231); */
     background-color: rgb(144, 238, 144);
 }
+
+/* style for user messages */
 .userMsg{
     border: rgba(70, 69, 69, 0.582) ridge 1px;
     padding: 2%;

@@ -1,6 +1,7 @@
 /* created by Samyak Jain
     on 15 July 2020 */
 
+/// onload function
 onload = function () {
     console.log("here onload");
     askedWeather = false;
@@ -11,78 +12,85 @@ onload = function () {
     replyCnt = 0;
     chatEnd = false;
 
+    /// sounds initialisation
     userMsgSound = new Sound("media/userMsgSound.mp3");
     botMsgSound = new Sound("media/botMsgSound.mp3");
 
+    /// chat object
     var chatObj = {
+        /// initialisation
         init: function () {
             this.cacheDom();
             this.eventBind();
             rnd3 = 'top-news?country=in&token=114059f';
             // botMsgSound.play();
         },
+
+        /// accesing dom elements
         cacheDom: function () {
             this.chatBox = document.getElementById("chatbox");
             this.msgBox = document.getElementById("msgbox");
             this.msgList = document.getElementById("msgList");
             this.typeBox = document.getElementById("typebox");
             this.sendBtn = document.getElementById("sendBtn");
-            
+
         },
+
+        /// adding event listeners
         eventBind: function () {
             sendBtn.addEventListener("click", this.addMsg);
             typeBox.addEventListener("keyup", this.addMsgEnter);
             rnd4 = 'current.json?key=c2cf5e10';
         },
-        
-        
+
+        /// renders user message on screen
         userRender: async function () {
             // console.log("here render");
             scrollBottom();
             if (this.newMsg.length !== 0) {
                 userMsgSound.play();
-                showMsg(this.newMsg,"userMsg");
+                showMsg(this.newMsg, "userMsg");
                 typeBox.value = "";
-                setTimeout(function(){
+                setTimeout(function () {
                     chatObj.botRender();
-                },750);                
+                }, 750);
             }
             scrollBottom();
         },
 
-
+        /// rrenders bot message on screen
         botRender: async function () {
             let totalOptions = 4;
-            if(this.newMsg.toLowerCase() === "bye" || this.newMsg.toLowerCase() === "'bye'"){
-                if(chatEnd === false){
+            if (this.newMsg.toLowerCase() === "bye" || this.newMsg.toLowerCase() === "'bye'") {
+                if (chatEnd === false) {
                     botMsgSound.play();
-                    showMsg("Chat has ended !","botMsg");
+                    showMsg("Chat has ended !", "botMsg");
                     setTimeout(
-                        function(){
-                            showMsg("Enter 'reset' to start the chat again !","botMsg");
+                        function () {
+                            showMsg("Enter 'reset' to start the chat again !", "botMsg");
                             botMsgSound.play();
-                        } , 1000 
+                        }, 1000
                     );
-                    
-                    chatEnd = true;      
+
+                    chatEnd = true;
                 }
-                else{
+                else {
                     botMsgSound.play();
-                    showMsg("Chat has ended ! Enter 'reset' to start the chat again !","botMsg");
+                    showMsg("Chat has ended ! Enter 'reset' to start the chat again !", "botMsg");
                 }
                 return;
             }
-            if(chatEnd === true ){
-                if(this.newMsg.toLowerCase() === "reset" || this.newMsg.toLowerCase() === "'reset'"){
+            if (chatEnd === true) {
+                if (this.newMsg.toLowerCase() === "reset" || this.newMsg.toLowerCase() === "'reset'") {
                     location.reload();
                 }
-                else{
+                else {
                     botMsgSound.play();
-                    showMsg("Chat has ended ! Enter 'reset' to start the chat again !","botMsg");
+                    showMsg("Chat has ended ! Enter 'reset' to start the chat again !", "botMsg");
                 }
                 return;
             }
-            if(this.newMsg === "#" || this.newMsg === "'#'" || this.newMsg === "' # '"){
+            if (this.newMsg === "#" || this.newMsg === "'#'" || this.newMsg === "' # '") {
                 botMsgSound.play();
                 showMenu();
                 return;
@@ -96,12 +104,12 @@ onload = function () {
                 data = "Please enter a valid option number (1 to 4) and try again ! :)";
             }
             botMsgSound.play();
-            showMsg(data,"botMsg");
+            showMsg(data, "botMsg");
 
             if (replyCnt === 0) {
                 setTimeout(
-                    function(){
-                        showMsg("Keep entering option numbers to keep chatting with me. <br><br>You can enter ' # ' anytime to see the options menu again ! :) <br><br> Enter 'bye' to end the chat at any time.","botMsg");
+                    function () {
+                        showMsg("Keep entering option numbers to keep chatting with me. <br><br>You can enter ' # ' anytime to see the options menu again ! :) <br><br> Enter 'bye' to end the chat at any time.", "botMsg");
                         botMsgSound.play();
                     }, 1000
                 );
@@ -109,12 +117,14 @@ onload = function () {
             }
         },
 
-
+        /// gets called when send button is clicked
         addMsg: function () {
             // console.log("here addMsg");
             chatObj.newMsg = typeBox.value.trim();
             chatObj.userRender();
         },
+
+        /// gets called when enter is pressed
         addMsgEnter: function (e) {
             // console.log("here addMsg");
             if (e.key === "Enter") {
@@ -125,10 +135,13 @@ onload = function () {
 
     }
     rnd1 = 'b8d7166488c'
+
+    /// calling init function
     chatObj.init();
 
-
 }
+
+/// stores functions for each option
 var functionsArr = [
     getNews,
     getWeather,
@@ -136,10 +149,13 @@ var functionsArr = [
     getJoke
 ]
 rnd6 = '40202407&q=Delhi';
+
+/// will store json returned from api calls
 var jsonObj = {
 
 }
 
+/// function to get news
 async function getNews() {
     if (askedNews === false) {
         console.log("news api called");
@@ -164,6 +180,7 @@ async function getNews() {
     // return "This is a news";
 }
 
+/// function to get weather
 async function getWeather() {
     if (askedWeather === false) {
         console.log("weather api called");
@@ -181,13 +198,15 @@ async function getWeather() {
     // return "This is the weather";
 }
 
+/// function to get fact
 async function getFact() {
     const response = await fetch('https://uselessfacts.jsph.pl//random.json?language=en');
-    const jsonResp = await response.json(); 
+    const jsonResp = await response.json();
     return jsonResp.text + "<br><br>Enter 3 again to read another fun fact or choose another option !";
     // return "Fun Fact: I am a Bot but I have feelings too!! :)";
 }
 
+/// function to get joke
 async function getJoke() {
     if (jokesCnt % 5 === 4) {
         const response = await fetch('https://api.icndb.com/jokes/random');
@@ -209,11 +228,13 @@ async function getJoke() {
 
 }
 
+/// function to scroll to bottom of page
 function scrollBottom() {
     var scrollElm = document.scrollingElement;
     scrollElm.scrollTop = scrollElm.scrollHeight;
 }
 
+/// function that prints menu
 function showMenu() {
     let nMsg = document.createElement('li');
     nMsg.innerHTML = "Menu: <br>1.Check the news <br>2.Get weather updates <br>3.Read a fun fact <br>4.Read a joke <br><br>Enter an option number to continue or enter 'bye' to end the chat.";
@@ -221,27 +242,31 @@ function showMenu() {
     msgList.appendChild(nMsg);
 }
 rnd5 = '2508406abcc1446';
-function showMsg(data,msgClass){
+
+/// function that prints messages
+function showMsg(data, msgClass) {
     let nMsg = document.createElement('li');
     nMsg.innerHTML = data;
     nMsg.className = msgClass;
     msgList.appendChild(nMsg);
 }
-class Sound {
-	constructor(src) {
-		this.sound = document.createElement("audio");
-		this.sound.src = src;
-		this.sound.setAttribute("preload", "auto");
-		this.sound.setAttribute("controls", "none");
-		this.sound.style.display = "none";
-		document.body.appendChild(this.sound);
 
-		/// method definition
-		this.play = function () {
-			this.sound.play();
-		};
-		this.stop = function () {
-			this.sound.pause();
-		};
-	}
+/// class to handle sounds
+class Sound {
+    constructor(src) {
+        this.sound = document.createElement("audio");
+        this.sound.src = src;
+        this.sound.setAttribute("preload", "auto");
+        this.sound.setAttribute("controls", "none");
+        this.sound.style.display = "none";
+        document.body.appendChild(this.sound);
+
+        /// method definition
+        this.play = function () {
+            this.sound.play();
+        };
+        this.stop = function () {
+            this.sound.pause();
+        };
+    }
 }
