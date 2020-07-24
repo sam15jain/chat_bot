@@ -39,7 +39,7 @@
 
 * The Website is made responsive with CSS and sounds are added to enhance the user experience
 
-![responsive]("screenshots/responsiveSS.png")
+![responsive](screenshots/responsiveSS.png)
 
 * User can also perform other actions like
 
