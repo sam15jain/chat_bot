@@ -10,11 +10,14 @@ onload = function () {
     replyCnt = 0;
     chatEnd = false;
 
+    userMsgSound = new Sound("media/userMsgSound.mp3");
+    botMsgSound = new Sound("media/botMsgSound.mp3");
 
     var chatObj = {
         init: function () {
             this.cacheDom();
             this.eventBind();
+            // botMsgSound.play();
         },
         cacheDom: function () {
             this.chatBox = document.getElementById("chatbox");
@@ -33,9 +36,12 @@ onload = function () {
             // console.log("here render");
             scrollBottom();
             if (this.newMsg.length !== 0) {
+                userMsgSound.play();
                 showMsg(this.newMsg,"userMsg");
                 typeBox.value = "";
-                setTimeout(function(){chatObj.botRender()},500);                
+                setTimeout(function(){
+                    chatObj.botRender();
+                },700);                
             }
             scrollBottom();
         },
@@ -45,14 +51,20 @@ onload = function () {
             let totalOptions = 4;
             if(this.newMsg.toLowerCase() === "bye" || this.newMsg.toLowerCase() === "'bye'"){
                 if(chatEnd === false){
+                    botMsgSound.play();
                     showMsg("Chat has ended !","botMsg");
                     setTimeout(
                         function(){
                             showMsg("Enter 'reset' to start the chat again !","botMsg");
+                            botMsgSound.play();
                         } , 1000 
                     );
                     
                     chatEnd = true;      
+                }
+                else{
+                    botMsgSound.play();
+                    showMsg("Chat has ended ! Enter 'reset' to start the chat again !","botMsg");
                 }
                 return;
             }
@@ -61,11 +73,13 @@ onload = function () {
                     location.reload();
                 }
                 else{
+                    botMsgSound.play();
                     showMsg("Chat has ended ! Enter 'reset' to start the chat again !","botMsg");
                 }
                 return;
             }
             if(this.newMsg === "#" || this.newMsg === "'#'" || this.newMsg === "' # '"){
+                botMsgSound.play();
                 showMenu();
                 return;
             }
@@ -77,13 +91,14 @@ onload = function () {
             else {
                 data = "Please enter a valid option number (1 to 4) and try again ! :)";
             }
-
+            botMsgSound.play();
             showMsg(data,"botMsg");
 
             if (replyCnt === 0) {
                 setTimeout(
                     function(){
                         showMsg("Keep entering option numbers to keep chatting with me. <br><br>You can enter ' # ' anytime to see the options menu again ! :) <br><br> Enter 'bye' to end the chat at any time.","botMsg");
+                        botMsgSound.play();
                     }, 1000
                 );
                 replyCnt = 1;
@@ -120,14 +135,20 @@ var jsonObj = {
 }
 
 async function getNews() {
-    
+ 
     return "This is a news";
 }
 
 async function getWeather() {
     
-
     return "This is the weather";
+}
+
+async function getFact() {
+    const response = await fetch('https://uselessfacts.jsph.pl//random.json?language=en');
+    const jsonResp = await response.json(); 
+    return jsonResp.text + "<br><br>Enter 3 again to read another fun fact or choose another option !";
+    // return "Fun Fact: I am a Bot but I have feelings too!! :)";
 }
 
 async function getJoke() {
@@ -135,7 +156,7 @@ async function getJoke() {
         const response = await fetch('https://api.icndb.com/jokes/random');
         const jsonResp = await response.json();
         jokesCnt++;
-        return jsonResp.value.joke;
+        return jsonResp.value.joke + "<br><br>Enter 4 again to read another joke or choose another option !";
     }
     else {
         const options = {
@@ -146,16 +167,9 @@ async function getJoke() {
         const response = await fetch("https://icanhazdadjoke.com/", options);
         const jsonResp = await response.json();
         jokesCnt++;
-        return jsonResp.joke;
+        return jsonResp.joke + "<br><br>Enter 4 again to read another joke or choose another option !";
     }
 
-}
-
-async function getFact() {
-    const response = await fetch('https://uselessfacts.jsph.pl//random.json?language=en');
-    const jsonResp = await response.json(); 
-    return jsonResp.text;
-    // return "Fun Fact: I am a Bot but I have feelings too!! :)";
 }
 
 function scrollBottom() {
@@ -165,7 +179,7 @@ function scrollBottom() {
 
 function showMenu() {
     let nMsg = document.createElement('li');
-    nMsg.innerHTML = "Menu: <br>1.Check the news <br>2.Get weather updates <br>3.Hear a fun fact <br>4.Hear a joke <br>(Enter an option number to continue or enter 'bye' to end the chat.)";
+    nMsg.innerHTML = "Menu: <br>1.Check the news <br>2.Get weather updates <br>3.Read a fun fact <br>4.Read a joke <br><br>Enter an option number to continue or enter 'bye' to end the chat.";
     nMsg.className = "botMsg";
     msgList.appendChild(nMsg);
 }
@@ -175,4 +189,22 @@ function showMsg(data,msgClass){
     nMsg.innerHTML = data;
     nMsg.className = msgClass;
     msgList.appendChild(nMsg);
+}
+class Sound {
+	constructor(src) {
+		this.sound = document.createElement("audio");
+		this.sound.src = src;
+		this.sound.setAttribute("preload", "auto");
+		this.sound.setAttribute("controls", "none");
+		this.sound.style.display = "none";
+		document.body.appendChild(this.sound);
+
+		/// method definition
+		this.play = function () {
+			this.sound.play();
+		};
+		this.stop = function () {
+			this.sound.pause();
+		};
+	}
 }
