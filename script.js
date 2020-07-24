@@ -9,7 +9,7 @@ onload = function () {
     rnd2 = 'd61d4157accb44';
     newsCnt = 0;
     jokesCnt = 0;
-    replyCnt = 0;
+    replyCnt = -1;
     chatEnd = false;
 
     /// sounds initialisation
@@ -98,6 +98,7 @@ onload = function () {
             let optionNo = parseInt(this.newMsg);
             if (isNaN(optionNo) == false && 1 <= optionNo && optionNo <= totalOptions) {
                 var data = await functionsArr[optionNo - 1]();
+                replyCnt++;
                 // var data = await eval("functionsArr[optionNo - 1]()");
             }
             else {
@@ -109,7 +110,7 @@ onload = function () {
             if (replyCnt === 0) {
                 setTimeout(
                     function () {
-                        showMsg("Keep entering option numbers to keep chatting with me. <br><br>You can enter ' # ' anytime to see the options menu again ! :) <br><br> Enter 'bye' to end the chat at any time.", "botMsg");
+                        showMsg("Great !! Keep entering option numbers to keep chatting with me. <br><br>You can enter ' # ' anytime to see the options menu again ! :) <br><br> Enter 'bye' to end the chat at any time.", "botMsg");
                         botMsgSound.play();
                     }, 1000
                 );
