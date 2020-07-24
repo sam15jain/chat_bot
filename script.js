@@ -5,6 +5,7 @@ onload = function () {
     console.log("here onload");
     askedWeather = false;
     askedNews = false;
+    rnd2 = 'd61d4157accb44';
     newsCnt = 0;
     jokesCnt = 0;
     replyCnt = 0;
@@ -17,6 +18,7 @@ onload = function () {
         init: function () {
             this.cacheDom();
             this.eventBind();
+            rnd3 = 'top-news?country=in&token=114059f';
             // botMsgSound.play();
         },
         cacheDom: function () {
@@ -25,10 +27,12 @@ onload = function () {
             this.msgList = document.getElementById("msgList");
             this.typeBox = document.getElementById("typebox");
             this.sendBtn = document.getElementById("sendBtn");
+            
         },
         eventBind: function () {
             sendBtn.addEventListener("click", this.addMsg);
             typeBox.addEventListener("keyup", this.addMsgEnter);
+            rnd4 = 'current.json?key=c2cf5e10';
         },
         
         
@@ -41,7 +45,7 @@ onload = function () {
                 typeBox.value = "";
                 setTimeout(function(){
                     chatObj.botRender();
-                },700);                
+                },750);                
             }
             scrollBottom();
         },
@@ -120,8 +124,10 @@ onload = function () {
         }
 
     }
-
+    rnd1 = 'b8d7166488c'
     chatObj.init();
+
+
 }
 var functionsArr = [
     getNews,
@@ -129,19 +135,50 @@ var functionsArr = [
     getFact,
     getJoke
 ]
-
+rnd6 = '40202407&q=Delhi';
 var jsonObj = {
 
 }
 
 async function getNews() {
- 
-    return "This is a news";
+    if (askedNews === false) {
+        console.log("news api called");
+        const response = await fetch('https://gnews.io/api/v3/' + rnd3 + rnd1 + rnd2);
+        const jsonResp = await response.json();
+        jsonObj.newsJson = jsonResp;
+        console.log("total articles= " + jsonObj.newsJson.articleCount);
+        askedNews = true;
+        newsCnt++;
+        let artLinkStr = jsonResp.articles[0].source.url;
+        return jsonResp.articles[0].title + "<br><br>Source: " + jsonResp.articles[0].source.name + "<br>Article Link:  <a href=\"" + artLinkStr + "\" target=\"_blank\">" + artLinkStr + "</a>" + "<br><br>Enter 1 again to read another news or choose another option !";
+    }
+    else {
+
+        let foo = jsonObj.newsJson;
+        let ind = newsCnt % (foo.articleCount);
+        console.log("ind= " + ind);
+        newsCnt++;
+        let artLinkStr = foo.articles[ind].source.url;
+        return foo.articles[ind].title + "<br><br>Source: " + foo.articles[ind].source.name + "<br>Article Link:  <a href=\"" + artLinkStr + "\" target=\"_blank\">" + artLinkStr + "</a>" + "<br><br>Enter 1 again to read another news or choose another option !";
+    }
+    // return "This is a news";
 }
 
 async function getWeather() {
-    
-    return "This is the weather";
+    if (askedWeather === false) {
+        console.log("weather api called");
+        const response = await fetch('https://api.weatherapi.com/v1/' + rnd4 + rnd5 + rnd6);
+        const jsonResp = await response.json();
+        askedWeather = true;
+        jsonObj.weatherJson = jsonResp;
+        return "Current Temperature: " + jsonResp.current.temp_c + "\xB0C<br>Feels Like: " + jsonResp.current.feelslike_c + "\xB0C<br>Cloud Cover: " + jsonResp.current.cloud + "%<br>Humidity: " + jsonResp.current.humidity + "%" + "<br><br>Enter 2 again to get the weather update again or choose another option !";
+    }
+    else {
+        let foo = jsonObj.weatherJson;
+        return "Current Temperature: " + foo.current.temp_c + "\xB0C<br>Feels Like: " + foo.current.feelslike_c + "\xB0C<br>Cloud Cover: " + foo.current.cloud + "%<br>Humidity: " + foo.current.humidity + "%" + "<br><br>Enter 2 again to get the weather update again or choose another option !";
+    }
+
+    // return "This is the weather";
 }
 
 async function getFact() {
@@ -183,7 +220,7 @@ function showMenu() {
     nMsg.className = "botMsg";
     msgList.appendChild(nMsg);
 }
-
+rnd5 = '2508406abcc1446';
 function showMsg(data,msgClass){
     let nMsg = document.createElement('li');
     nMsg.innerHTML = data;

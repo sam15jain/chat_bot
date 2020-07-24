@@ -8,7 +8,7 @@
 .boxes{
     /* position: absolute; */
     border: rgba(70, 69, 69, 0.582) ridge 1px;
-    font-family:   'Trebuchet MS', Calibri, sans-serif;
+    font-family:   'Trebuchet MS', sans-serif;
     font-size: medium;
     border-style: ridge;
     background-color: whitesmoke;
