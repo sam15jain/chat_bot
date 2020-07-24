@@ -101,7 +101,7 @@ onload = function () {
                 // var data = await eval("functionsArr[optionNo - 1]()");
             }
             else {
-                data = "Please enter a valid option number (1 to 4) and try again ! :)";
+                data = "Please enter a valid option number (1 to 4) and try again ! :) <br><br>Enter 'bye' if you want to end the chat.";
             }
             botMsgSound.play();
             showMsg(data, "botMsg");
