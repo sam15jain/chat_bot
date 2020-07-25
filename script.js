@@ -209,7 +209,7 @@ async function getFact() {
 
 /// function to get joke
 async function getJoke() {
-    if (jokesCnt % 5 === 4) {
+    if (jokesCnt % 10 === 9) {
         const response = await fetch('https://api.icndb.com/jokes/random');
         const jsonResp = await response.json();
         jokesCnt++;
